@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venkatkrishnan Iyer — Computer Engineer</title>
+<meta name="description" content="Portfolio of Venkatkrishnan Iyer — Computer Engineering, University of Michigan. Systems, embedded, and computer architecture.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A140D;
+    --bg-panel:#0F2818;
+    --bg-panel-2:#0C2015;
+    --gold:#D4AF37;
+    --gold-dim:rgba(212,175,55,0.35);
+    --silk:#EDEAE0;
+    --cyan:#4FD1C5;
+    --copper:#C08A4E;
+    --muted:#7C9484;
+    --danger-red:#C1554A;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--silk);
+    font-family:var(--sans);
+    line-height:1.6;
+    position:relative;
+  }
+
+  /* faint schematic grid */
+  .grid-overlay{
+    position:fixed; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(212,175,55,0.045) 0px, rgba(212,175,55,0.045) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(90deg, rgba(212,175,55,0.045) 0px, rgba(212,175,55,0.045) 1px, transparent 1px, transparent 40px);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  a{color:var(--cyan); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  section, header, footer{position:relative; z-index:1;}
+
+  /* status bar */
+  .statusbar{
+    display:flex; align-items:center; justify-content:center; gap:.6rem;
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.12em;
+    color:var(--muted);
+    padding:.6rem 1rem;
+    border-bottom:1px solid rgba(212,175,55,0.15);
+    text-align:center;
+    flex-wrap:wrap;
+  }
+  .led{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 6px 1px var(--cyan);
+    animation:blink 2.4s ease-in-out infinite;
+    flex:none;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:.25;} }
+
+  /* HERO / CHIP */
+  .chip-hero{
+    min-height:92vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:3rem 1.25rem;
+    text-align:center;
+  }
+  .datasheet-tag{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.2em;
+    color:var(--muted); text-transform:uppercase; margin-bottom:2.5rem;
+    display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
+  }
+
+  .chip-wrap{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    width:min(620px, 92vw);
+  }
+
+  .pins{
+    display:flex; flex-direction:column; gap:1.4rem;
+    flex:none;
+  }
+  .pin{
+    display:flex; align-items:center; gap:.5rem;
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.1em;
+    color:var(--muted);
+  }
+  .pins.left .pin{ flex-direction:row; }
+  .pins.right .pin{ flex-direction:row-reverse; }
+  .pin .lead{
+    width:22px; height:2px; background:var(--gold-dim);
+    transition:background .2s ease, box-shadow .2s ease;
+  }
+  .pin a{
+    color:var(--muted); text-decoration:none;
+    padding:.15rem .3rem;
+    transition:color .2s ease;
+  }
+  .pin:hover .lead{ background:var(--cyan); box-shadow:0 0 6px var(--cyan); }
+  .pin:hover a{ color:var(--cyan); text-decoration:none; }
+
+  .chip{
+    position:relative;
+    background:var(--bg-panel);
+    border:2px solid var(--gold);
+    border-radius:8px;
+    padding:2.8rem 2rem;
+    width:min(340px, 60vw);
+    box-shadow: inset 0 0 50px rgba(212,175,55,0.06), 0 0 30px rgba(0,0,0,0.4);
+    overflow:hidden;
+  }
+  .chip::before{
+    /* pin-1 notch */
+    content:"";
+    position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+    width:20px; height:20px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+    background:var(--bg);
+  }
+  .chip .scan{
+    position:absolute; left:0; right:0; top:-20%;
+    height:40%;
+    background:linear-gradient(180deg, transparent, rgba(79,209,197,0.16), transparent);
+    animation:scan 2.4s ease-out 1;
+  }
+  @keyframes scan{
+    0%{ top:-40%; opacity:0; }
+    15%{ opacity:1; }
+    100%{ top:110%; opacity:0; }
+  }
+  .part-number{
+    font-family:var(--mono); font-weight:700; font-size:clamp(1.6rem, 5vw, 2.1rem);
+    letter-spacing:.06em; color:var(--silk); margin:0;
+  }
+  .package-type{
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.18em;
+    color:var(--gold); text-transform:uppercase; margin:.6rem 0 0;
+  }
+  .tagline{
+    font-size:.92rem; color:var(--muted); margin:1.1rem 0 0;
+  }
+  .name-full{
+    font-size:1.3rem; font-weight:600; color:var(--silk); margin:1.4rem 0 0;
+  }
+
+  .mobile-pins{ display:none; }
+
+  /* COMPONENT SECTIONS */
+  .component{
+    max-width:820px; margin:0 auto;
+    padding:4.5rem 1.5rem;
+    border-top:1px dashed rgba(212,175,55,0.22);
+    scroll-margin-top:1.5rem;
+  }
+  .component-header{
+    display:flex; align-items:baseline; gap:.9rem; margin-bottom:2.4rem; flex-wrap:wrap;
+  }
+  .ref{
+    font-family:var(--mono); font-weight:700; font-size:.95rem;
+    color:var(--gold); border:1px solid var(--gold); border-radius:4px;
+    padding:.15rem .55rem; letter-spacing:.05em;
+  }
+  .component-title{
+    font-family:var(--mono); letter-spacing:.16em; text-transform:uppercase;
+    font-size:.92rem; color:var(--silk); font-weight:500;
+  }
+
+  /* Education */
+  .edu-row{ display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .edu-degree{ font-size:1.1rem; font-weight:600; }
+  .edu-school{ color:var(--muted); margin-top:.2rem; }
+  .edu-dates{ font-family:var(--mono); font-size:.82rem; color:var(--muted); white-space:nowrap; }
+  .edu-note{ margin-top:1rem; font-size:.9rem; color:var(--cyan); font-family:var(--mono); }
+
+  /* Experience */
+  .job{ display:grid; grid-template-columns:150px 1fr; gap:1.2rem; margin-bottom:2.6rem; }
+  .job:last-child{ margin-bottom:0; }
+  .job-dates{ font-family:var(--mono); font-size:.78rem; color:var(--muted); padding-top:.15rem; }
+  .job-role{ font-weight:600; font-size:1.02rem; }
+  .job-company{ color:var(--gold); font-size:.92rem; margin-bottom:.6rem; }
+  .job ul{ margin:.3rem 0 0; padding-left:1.1rem; color:var(--silk); }
+  .job li{ margin-bottom:.4rem; font-size:.94rem; }
+  .job li::marker{ color:var(--gold); }
+
+  @media (max-width:640px){
+    .job{ grid-template-columns:1fr; gap:.3rem; }
+  }
+
+  /* Projects */
+  .proj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  @media (max-width:700px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{
+    background:var(--bg-panel-2);
+    border:1px solid rgba(212,175,55,0.25);
+    border-radius:6px;
+    padding:1.4rem 1.3rem;
+  }
+  .proj-title{ font-weight:600; font-size:1rem; margin-bottom:.15rem; }
+  .proj-date{ font-family:var(--mono); font-size:.72rem; color:var(--muted); margin-bottom:.7rem; }
+  .proj-card ul{ margin:.4rem 0 .9rem; padding-left:1.05rem; font-size:.88rem; }
+  .proj-card li{ margin-bottom:.35rem; }
+  .proj-card li::marker{ color:var(--gold); }
+  .tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
+  .tag{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.03em;
+    color:var(--copper); border:1px solid rgba(192,138,78,0.5);
+    padding:.15rem .45rem; border-radius:3px;
+  }
+
+  /* Skills / BOM table */
+  .bom{ width:100%; border-collapse:collapse; font-size:.92rem; }
+  .bom th{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); text-align:left; padding:.5rem .6rem; border-bottom:1px solid var(--gold-dim);
+  }
+  .bom td{
+    padding:.75rem .6rem; border-bottom:1px solid rgba(212,175,55,0.12);
+    vertical-align:top;
+  }
+  .bom-ref{ font-family:var(--mono); color:var(--gold); font-weight:600; white-space:nowrap; }
+  .bom-desig{ color:var(--silk); font-weight:500; white-space:nowrap; }
+  .bom-value{ color:var(--muted); }
+
+  /* Contact */
+  .connector{ display:flex; flex-wrap:wrap; gap:1.4rem; margin-bottom:2rem; }
+  .conn-pin{
+    display:flex; flex-direction:column; gap:.3rem;
+    border:1px solid rgba(212,175,55,0.3); border-radius:6px;
+    padding:1rem 1.2rem; flex:1 1 200px;
+  }
+  .conn-label{ font-family:var(--mono); font-size:.68rem; letter-spacing:.15em; color:var(--muted); text-transform:uppercase; }
+  .conn-value{ font-size:.95rem; }
+  .conn-value a{ color:var(--silk); }
+  .conn-value a:hover{ color:var(--cyan); }
+  .resume-btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    font-family:var(--mono); font-size:.85rem; letter-spacing:.05em;
+    color:var(--bg); background:var(--gold);
+    padding:.75rem 1.3rem; border-radius:5px; text-decoration:none;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .resume-btn:hover{ background:var(--cyan); text-decoration:none; transform:translateY(-1px); }
+  .copy-note{ font-family:var(--mono); font-size:.72rem; color:var(--cyan); opacity:0; transition:opacity .2s ease; margin-top:.3rem; }
+  .copy-note.show{ opacity:1; }
+
+  footer{
+    text-align:center; padding:2.5rem 1rem 3rem;
+    font-family:var(--mono); font-size:.72rem; color:var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .led{ animation:none; }
+    .chip .scan{ animation:none; display:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* mobile chip layout: stack pins below */
+  @media (max-width:640px){
+    .chip-wrap{ flex-direction:column; gap:1.6rem; }
+    .pins{ flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.8rem 1.2rem; }
+    .pins.left, .pins.right{ order:2; }
+    .pin .lead{ display:none; }
+    .chip{ order:1; width:min(320px, 84vw); }
+  }
+</style>
+</head>
+<body>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<div class="statusbar">
+  <span class="led" aria-hidden="true"></span>
+  STATUS: OPEN FOR 2027 FULL-TIME ROLES &amp; INTERNSHIPS — ANN ARBOR, MI
+</div>
+
+<header class="chip-hero" id="top">
+  <div class="datasheet-tag">
+    <span>DATASHEET</span><span>REV. 2026.07</span><span>ANN ARBOR, MI</span>
+  </div>
+
+  <div class="chip-wrap">
+    <nav class="pins left" aria-label="Section navigation">
+      <div class="pin"><span class="lead" aria-hidden="true"></span><a href="#edu">EDU</a></div>
+      <div class="pin"><span class="lead" aria-hidden="true"></span><a href="#exp">EXP</a></div>
+      <div class="pin"><span class="lead" aria-hidden="true"></span><a href="#prj">PRJ</a></div>
+    </nav>
+
+    <div class="chip">
+      <div class="scan" aria-hidden="true"></div>
+      <p class="package-type">Computer Engineer</p>
+      <p class="part-number">VDI&nbsp;'27</p>
+      <p class="name-full">Venkatkrishnan Iyer</p>
+      <p class="tagline">Systems · Embedded · Computer Architecture</p>
+    </div>
+
+    <nav class="pins right" aria-label="Section navigation">
+      <div class="pin"><span class="lead" aria-hidden="true"></span><a href="#skl">SKL</a></div>
+      <div class="pin"><span class="lead" aria-hidden="true"></span><a href="#ctc">CTC</a></div>
+      <div class="pin"><span class="lead" aria-hidden="true"></span><a href="assets/resume.pdf" target="_blank" rel="noopener">RES</a></div>
+    </nav>
+  </div>
+</header>
+
+<section class="component" id="edu">
+  <div class="component-header">
+    <span class="ref">X1</span>
+    <span class="component-title">Education</span>
+  </div>
+  <div class="edu-row">
+    <div>
+      <div class="edu-degree">B.E. Computer Engineering, Minor in Asian Languages</div>
+      <div class="edu-school">University of Michigan — Ann Arbor, MI</div>
+    </div>
+    <div class="edu-dates">Aug 2023 – May 2027</div>
+  </div>
+  <div class="edu-note">// available for 2027 full-time roles &amp; future internships</div>
+</section>
+
+<section class="component" id="exp">
+  <div class="component-header">
+    <span class="ref">U1</span>
+    <span class="component-title">Experience</span>
+  </div>
+
+  <div class="job">
+    <div class="job-dates">May 2026 – Present</div>
+    <div>
+      <div class="job-role">DevOps Intern</div>
+      <div class="job-company">Helping Hand AI</div>
+      <ul>
+        <li>Built a live camera pipeline orchestrating MediaMTX to pull RTSP from Reolink cameras and re-serve low-latency HLS (1s segments) and WebRTC/WHEP streams to the caregiver app, with a WHIP path for two-way audio.</li>
+        <li>Designed a FastAPI + SQLite backend secured with JWT (HS256) auth, bcrypt hashing, and role-based access control, exposing a filterable, paginated alert API with an accept/dismiss/false-alarm workflow.</li>
+        <li>Implemented real-time tiered alert delivery over a JWT-authenticated WebSocket channel, persisting event type, severity, and CV confidence scores for the mobile and ML/CV teams.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-dates">Mar 2026 – Present</div>
+    <div>
+      <div class="job-role">Problem Design Engineer</div>
+      <div class="job-company">Widget Factory (Idler, YC S25)</div>
+      <ul>
+        <li>Reviewed code changes across diverse repositories to evaluate problem clarity, correctness, and fairness.</li>
+        <li>Assessed test quality to ensure alignment between intended solutions and validation cases.</li>
+        <li>Identified ambiguities, inconsistencies, and missing context in problem statements and artifacts.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-dates">Oct 2024 – Feb 2025</div>
+    <div>
+      <div class="job-role">Junior Programmer</div>
+      <div class="job-company">GrimmWyrd Studios</div>
+      <ul>
+        <li>Diagnosed and fixed C++/Python bugs and resolved deployment and hosting issues across a shared codebase in a collaborative environment.</li>
+        <li>Implemented gameplay prototypes in Unreal Engine 5 and created supporting 3D assets in Blender.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="component" id="prj">
+  <div class="component-header">
+    <span class="ref">U2</span>
+    <span class="component-title">Projects</span>
+  </div>
+
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-title">Network File Server</div>
+      <div class="proj-date">Apr 2026</div>
+      <ul>
+        <li>Built a concurrent network file server supporting authenticated client requests, hierarchical file operations, and persistent file-system state.</li>
+        <li>Implemented synchronization for multi-client access, ensuring correctness under concurrent reads, writes, creates, deletes, and session handling.</li>
+      </ul>
+      <div class="tags"><span class="tag">C++</span><span class="tag">Threads</span><span class="tag">Synchronization</span><span class="tag">File Systems</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-title">RISC-V Authenticated Pointers</div>
+      <div class="proj-date">Jan 2026 – Apr 2026</div>
+      <ul>
+        <li>Hardened RISC-V control/data pointers against tampering by designing a pointer-authentication extension with PAC generation and verification.</li>
+        <li>Evaluated security and hardware cost tradeoffs across XOR, QARMA, CRAFT, and Ascon-based PAC designs and documented the decode-stage integration pipeline.</li>
+      </ul>
+      <div class="tags"><span class="tag">C++</span><span class="tag">RISC-V</span><span class="tag">Comp. Architecture</span><span class="tag">Security</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-title">Out-of-Order RISC-V Processor</div>
+      <div class="proj-date">Oct 2025 – Dec 2025</div>
+      <ul>
+        <li>Implemented a high-performance R10K-style out-of-order microprocessor with parameterized superscalar width, reservation stations, and load/store queue.</li>
+        <li>Designed non-blocking instruction/data caches, branch prediction, early tag broadcast, and a return address stack; verified correctness with custom testbenches and JasperGold.</li>
+      </ul>
+      <div class="tags"><span class="tag">Verilog</span><span class="tag">SystemVerilog</span><span class="tag">Verdi</span><span class="tag">JasperGold</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-title">Embedded Systems Soccer Robots</div>
+      <div class="proj-date">Oct 2025 – Dec 2025</div>
+      <ul>
+        <li>Implemented firmware for a robot soccer game using PS2 controllers, Zumo robots, LCD displays, break-beam sensors, and XBee wireless communication.</li>
+        <li>Configured STM32 peripherals and DAC-based audio output for responsive controls, goal detection, and sound effects.</li>
+      </ul>
+      <div class="tags"><span class="tag">C</span><span class="tag">ARM ASM</span><span class="tag">STM32L4+</span><span class="tag">CubeIDE</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="component" id="skl">
+  <div class="component-header">
+    <span class="ref">R1</span>
+    <span class="component-title">Skills — Bill of Materials</span>
+  </div>
+  <table class="bom">
+    <thead>
+      <tr><th>Ref</th><th>Designation</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bom-ref">L</td>
+        <td class="bom-desig">Languages</td>
+        <td class="bom-value">C, C++, Python, Java, JavaScript, R, Verilog, SystemVerilog, ARM Assembly</td>
+      </tr>
+      <tr>
+        <td class="bom-ref">S</td>
+        <td class="bom-desig">Systems / AI</td>
+        <td class="bom-value">RISC-V, Computer Architecture, Embedded Systems, JAX, Pallas, XLA, OpenCV</td>
+      </tr>
+      <tr>
+        <td class="bom-ref">T</td>
+        <td class="bom-desig">Tools &amp; Infrastructure</td>
+        <td class="bom-value">FastAPI, REST APIs, WebSockets, JWT Auth, Docker/Compose, MediaMTX, RTSP/ONVIF, HLS, WebRTC, SQLite, Git, VS Code, STM32, ARM Cortex-M4, Unreal Engine 5, Blender, Figma</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="component" id="ctc">
+  <div class="component-header">
+    <span class="ref">J1</span>
+    <span class="component-title">Contact — Connector</span>
+  </div>
+
+  <div class="connector">
+    <div class="conn-pin">
+      <span class="conn-label">Email</span>
+      <span class="conn-value"><a href="#" id="email-link">venkiyer@umich.edu</a></span>
+      <span class="copy-note" id="copy-note">copied to clipboard</span>
+    </div>
+    <div class="conn-pin">
+      <span class="conn-label">LinkedIn</span>
+      <span class="conn-value"><a href="https://linkedin.com/in/vdiyer" target="_blank" rel="noopener">linkedin.com/in/vdiyer</a></span>
+    </div>
+    <div class="conn-pin">
+      <span class="conn-label">GitHub</span>
+      <span class="conn-value"><a href="https://github.com/vdiyer" target="_blank" rel="noopener">github.com/vdiyer</a></span>
+    </div>
+  </div>
+
+  <a class="resume-btn" href="assets/resume.pdf" target="_blank" rel="noopener">↓ Download Resume (PDF)</a>
+</section>
+
+<footer>
+  // rendered on github pages · vdiyer.github.io
+</footer>
+
+<script>
+  document.getElementById('email-link').addEventListener('click', function(e){
+    e.preventDefault();
+    var email = 'venkiyer@umich.edu';
+    var note = document.getElementById('copy-note');
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(email).then(function(){
+        note.classList.add('show');
+        setTimeout(function(){ note.classList.remove('show'); }, 1800);
+      });
+    } else {
+      window.location.href = 'mailto:' + email;
+    }
+  });
+</script>
+</body>
+</html>
