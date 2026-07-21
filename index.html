@@ -219,6 +219,16 @@
     color:var(--copper); border:1px solid rgba(192,138,78,0.5);
     padding:.15rem .45rem; border-radius:3px;
   }
+  .proj-links{
+    display:flex; flex-wrap:wrap; gap:1rem;
+    margin-top:1rem; padding-top:.9rem;
+    border-top:1px dashed rgba(212,175,55,0.2);
+  }
+  .proj-links a{
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.03em;
+    color:var(--cyan);
+  }
+  .proj-links a:hover{ color:var(--gold); }
 
   /* Skills / BOM table */
   .bom{ width:100%; border-collapse:collapse; font-size:.92rem; }
@@ -408,6 +418,11 @@
         <li>Designed non-blocking instruction/data caches, branch prediction, early tag broadcast, and a return address stack; verified correctness with custom testbenches and JasperGold.</li>
       </ul>
       <div class="tags"><span class="tag">Verilog</span><span class="tag">SystemVerilog</span><span class="tag">Verdi</span><span class="tag">JasperGold</span></div>
+      <div class="proj-links">
+        <a href="assets/eecs470/report.pdf" target="_blank" rel="noopener">Report ↗</a>
+        <a href="assets/eecs470/presentation.pdf" target="_blank" rel="noopener">Slides ↗</a>
+        <a href="assets/eecs470/demo.mp4" target="_blank" rel="noopener">Demo Video ↗</a>
+      </div>
     </div>
 
     <div class="proj-card">
