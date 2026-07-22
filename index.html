@@ -3,20 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Venkatkrishnan Iyer — Computer Engineer</title>
-<meta name="description" content="Portfolio of Venkatkrishnan Iyer — Computer Engineering, University of Michigan. Systems, embedded, and computer architecture.">
+<title>Venkatkrishnan Iyer, Computer Engineer</title>
+<meta name="description" content="Portfolio of Venkatkrishnan Iyer, a Computer Engineering student at the University of Michigan working on systems, embedded platforms, and computer architecture.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#111111;
-    --gray:#5B5B5B;
-    --gray-light:#8A8A8A;
-    --rule:#E4E4E4;
+    --ink:#111318;
+    --gray:#5B5F6B;
+    --gray-light:#9195A0;
+    --rule:#E7E8EC;
     --bg:#FFFFFF;
+    --bg-soft:#F7F7F9;
     --accent:#2255C8;
+    --accent-soft:#EDF1FC;
     --sans:'Inter', system-ui, -apple-system, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
   }
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
@@ -25,252 +28,308 @@
     font-family:var(--sans); font-size:16px; line-height:1.65;
     -webkit-font-smoothing:antialiased;
   }
-  a{ color:var(--accent); text-decoration:none; }
-  a:hover{ text-decoration:underline; }
+  a{ color:inherit; text-decoration:none; }
   ul{ margin:0; padding:0; list-style:none; }
+  ::selection{ background:var(--accent-soft); color:var(--ink); }
 
-  .wrap{ max-width:680px; margin:0 auto; padding:0 1.5rem; }
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 1.75rem; }
 
-  /* header / nav */
-  header{
-    padding:3.5rem 0 2rem;
+  /* NAV */
+  .topnav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(255,255,255,0.88); backdrop-filter:blur(8px);
     border-bottom:1px solid var(--rule);
   }
-  header .name{ font-size:1.55rem; font-weight:700; margin:0 0 .25rem; }
-  header .role{ color:var(--gray); font-size:1rem; margin:0 0 1.5rem; }
-  nav ul{ display:flex; flex-wrap:wrap; gap:1.6rem; }
-  nav a{ color:var(--gray); font-size:.88rem; font-weight:500; }
-  nav a:hover{ color:var(--accent); text-decoration:none; }
+  .topnav .wrap{ display:flex; align-items:center; justify-content:space-between; padding:1.1rem 1.75rem; }
+  .brand{ font-weight:800; font-size:1rem; letter-spacing:-.01em; }
+  .topnav nav ul{ display:flex; gap:1.8rem; }
+  .topnav nav a{ font-size:.85rem; color:var(--gray); font-weight:500; }
+  .topnav nav a:hover{ color:var(--accent); }
+  .topnav .resume-link{
+    font-size:.82rem; font-weight:600; color:var(--accent);
+    border:1px solid var(--accent); border-radius:5px; padding:.4rem .85rem;
+  }
+  .topnav .resume-link:hover{ background:var(--accent-soft); }
+  @media (max-width:640px){ .topnav nav ul{ display:none; } }
 
-  main{ padding-top:0; }
-  section{ padding:3rem 0; border-bottom:1px solid var(--rule); scroll-margin-top:1.5rem; }
-  section:last-of-type{ border-bottom:none; }
+  /* HERO */
+  .hero{ padding:5.5rem 0 4.5rem; }
+  .hero .eyebrow{
+    font-family:var(--mono); font-size:.82rem; color:var(--accent);
+    margin:0 0 1.1rem; display:flex; align-items:center; gap:.6rem;
+  }
+  .hero .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); }
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.1rem); font-weight:800; letter-spacing:-.02em;
+    line-height:1.12; margin:0 0 1.1rem; max-width:16ch;
+  }
+  .hero .lede{ font-size:1.08rem; color:var(--gray); max-width:56ch; margin:0 0 2rem; }
+  .hero .cta-row{ display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn{
+    font-size:.9rem; font-weight:600; padding:.8rem 1.4rem; border-radius:6px;
+    display:inline-flex; align-items:center; gap:.5rem;
+  }
+  .btn-primary{ background:var(--ink); color:#fff; }
+  .btn-primary:hover{ background:var(--accent); }
+  .btn-secondary{ border:1px solid var(--rule); color:var(--ink); }
+  .btn-secondary:hover{ border-color:var(--accent); color:var(--accent); }
 
-  h2.label{
-    font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--gray-light); margin:0 0 1.6rem;
+  /* SECTION SCAFFOLDING */
+  section{ padding:4.5rem 0; border-top:1px solid var(--rule); scroll-margin-top:5rem; }
+  .sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:2.6rem; flex-wrap:wrap; }
+  .sec-head .idx{ font-family:var(--mono); font-size:.82rem; color:var(--accent); }
+  .sec-head h2{ font-size:1.55rem; font-weight:800; letter-spacing:-.01em; margin:.3rem 0 0; }
+  .sec-head .sub{ font-size:.92rem; color:var(--gray-light); max-width:32ch; text-align:right; }
+  @media (max-width:640px){ .sec-head .sub{ display:none; } }
+
+  /* PROJECTS: the visual centerpiece */
+  .proj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media (max-width:760px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{
+    background:var(--bg-soft); border:1px solid var(--rule); border-radius:12px;
+    padding:2rem; display:flex; flex-direction:column;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .proj-card:hover{
+    transform:translateY(-4px); border-color:var(--accent);
+    box-shadow:0 16px 32px rgba(17,19,24,0.08);
+  }
+  .proj-num{ font-family:var(--mono); font-size:.78rem; color:var(--gray-light); margin-bottom:.9rem; }
+  .proj-title{ font-size:1.15rem; font-weight:700; margin-bottom:.4rem; letter-spacing:-.01em; }
+  .proj-date{ font-family:var(--mono); font-size:.72rem; color:var(--gray-light); margin-bottom:1rem; }
+  .proj-card p.desc{ font-size:.93rem; color:var(--gray); margin:0 0 1.1rem; flex:1; }
+  .proj-tags{ display:flex; flex-wrap:wrap; gap:.45rem; margin-bottom:1.2rem; }
+  .proj-tags span{
+    font-family:var(--mono); font-size:.7rem; color:var(--accent);
+    background:var(--accent-soft); border-radius:4px; padding:.22rem .55rem;
+  }
+  .proj-links{ display:flex; flex-wrap:wrap; gap:1.1rem; padding-top:1rem; border-top:1px solid var(--rule); margin-top:auto; }
+  .proj-links a{ font-size:.85rem; font-weight:600; color:var(--ink); }
+  .proj-links a:hover{ color:var(--accent); text-decoration:underline; }
+
+  /* EXPERIENCE: condensed */
+  .exp-list{ display:flex; flex-direction:column; }
+  .exp-row{
+    display:grid; grid-template-columns:150px 1fr; gap:1.5rem;
+    padding:1.3rem 0; border-bottom:1px solid var(--rule);
+  }
+  .exp-row:first-child{ padding-top:0; }
+  .exp-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .exp-dates{ font-family:var(--mono); font-size:.78rem; color:var(--gray-light); padding-top:.15rem; }
+  .exp-role{ font-weight:700; font-size:.98rem; }
+  .exp-company{ color:var(--accent); font-size:.86rem; margin:.1rem 0 .5rem; }
+  .exp-row p.summary{ font-size:.9rem; color:var(--gray); margin:0; max-width:56ch; }
+  @media (max-width:640px){ .exp-row{ grid-template-columns:1fr; gap:.3rem; } }
+
+  /* SKILLS */
+  .skills-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:2rem; }
+  @media (max-width:700px){ .skills-grid{ grid-template-columns:1fr; } }
+  .skill-group h3{
+    font-family:var(--mono); font-size:.75rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 1rem;
+  }
+  .skill-pills{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .skill-pills span{
+    font-size:.83rem; color:var(--ink); background:var(--bg-soft);
+    border:1px solid var(--rule); border-radius:5px; padding:.32rem .7rem;
   }
 
-  /* about */
-  .about p{ margin:0 0 1rem; color:var(--ink); font-size:1rem; max-width:60ch; }
-  .about p:last-child{ margin-bottom:0; }
-  .status{ display:inline-block; margin-top:.5rem; font-size:.9rem; color:var(--gray); }
-  .status strong{ color:var(--ink); }
+  /* EDUCATION + CONTACT compact footer band */
+  .foot-band{ display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
+  @media (max-width:700px){ .foot-band{ grid-template-columns:1fr; gap:2.5rem; } }
+  .foot-band h3{ font-size:.95rem; font-weight:700; margin:0 0 .8rem; }
+  .edu-degree{ font-weight:600; font-size:.95rem; }
+  .edu-school{ color:var(--gray); font-size:.88rem; margin-top:.15rem; }
+  .edu-dates{ font-family:var(--mono); font-size:.78rem; color:var(--gray-light); margin-top:.4rem; }
+  .contact-list{ display:flex; flex-direction:column; gap:.55rem; }
+  .contact-list a{ font-size:.92rem; color:var(--ink); }
+  .contact-list a:hover{ color:var(--accent); text-decoration:underline; }
+  .contact-list .label{ display:inline-block; width:78px; color:var(--gray-light); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; }
 
-  /* experience */
-  .job{ margin-bottom:2rem; }
-  .job:last-child{ margin-bottom:0; }
-  .job-head{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; }
-  .job-role{ font-weight:600; font-size:1rem; }
-  .job-dates{ font-size:.85rem; color:var(--gray-light); white-space:nowrap; }
-  .job-company{ color:var(--gray); font-size:.92rem; margin:.1rem 0 .7rem; }
-  .job ul{ display:flex; flex-direction:column; gap:.5rem; }
-  .job li{ font-size:.94rem; color:var(--gray); padding-left:1rem; position:relative; }
-  .job li::before{ content:"–"; position:absolute; left:0; color:var(--gray-light); }
-
-  /* projects */
-  .proj{ margin-bottom:2.2rem; }
-  .proj:last-child{ margin-bottom:0; }
-  .proj-head{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; }
-  .proj-title{ font-weight:600; font-size:1rem; }
-  .proj-date{ font-size:.85rem; color:var(--gray-light); white-space:nowrap; }
-  .proj-stack{ font-size:.85rem; color:var(--gray-light); margin:.15rem 0 .7rem; }
-  .proj ul{ display:flex; flex-direction:column; gap:.5rem; margin-bottom:.7rem; }
-  .proj li{ font-size:.94rem; color:var(--gray); padding-left:1rem; position:relative; }
-  .proj li::before{ content:"–"; position:absolute; left:0; color:var(--gray-light); }
-  .proj-links{ font-size:.88rem; }
-  .proj-links a{ margin-right:1.2rem; }
-
-  /* skills */
-  .skill-row{ margin-bottom:1rem; font-size:.94rem; }
-  .skill-row:last-child{ margin-bottom:0; }
-  .skill-row .k{ color:var(--ink); font-weight:600; }
-  .skill-row .v{ color:var(--gray); }
-
-  /* education */
-  .edu-head{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; }
-  .edu-degree{ font-weight:600; font-size:1rem; }
-  .edu-dates{ font-size:.85rem; color:var(--gray-light); white-space:nowrap; }
-  .edu-school{ color:var(--gray); font-size:.92rem; margin-top:.15rem; }
-
-  /* contact */
-  .contact-list{ display:flex; flex-direction:column; gap:.6rem; }
-  .contact-list a{ font-size:.98rem; }
-  .contact-list .label{ display:inline-block; width:90px; color:var(--gray-light); font-size:.82rem; text-transform:uppercase; letter-spacing:.06em; }
-
-  footer{
-    padding:2.5rem 0 4rem; font-size:.82rem; color:var(--gray-light);
-  }
-
-  @media (max-width:480px){
-    header{ padding:2.5rem 0 1.5rem; }
-    section{ padding:2.2rem 0; }
-    .job-head, .proj-head, .edu-head{ flex-direction:column; align-items:flex-start; gap:.2rem; }
+  footer.site-footer{
+    text-align:center; padding:2.2rem 0 3rem; font-family:var(--mono);
+    font-size:.78rem; color:var(--gray-light); border-top:1px solid var(--rule);
   }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <p class="name">Venkatkrishnan Iyer</p>
-    <p class="role">Computer Engineer — Systems &amp; Embedded</p>
+<div class="topnav">
+  <div class="wrap">
+    <div class="brand">VDI</div>
     <nav>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
-  </header>
+    <a class="resume-link" href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
+  </div>
+</div>
 
-  <main>
-    <section id="about" class="about">
-      <h2 class="label">About</h2>
-      <p>I'm a Computer Engineering student at the University of Michigan, working close to the metal — out-of-order processors, embedded firmware, secure pointer authentication, and the backend systems that tie hardware to the apps people actually use.</p>
-      <p>Recent work spans a RISC-V superscalar processor, a live-video DevOps pipeline, and embedded robotics firmware.</p>
-      <div class="status"><strong>Open for 2027 full-time roles &amp; internships</strong> — Ann Arbor, MI</div>
-    </section>
+<div class="wrap">
+  <section class="hero">
+    <p class="eyebrow"><span class="dot"></span>Open for 2027 full-time roles &amp; internships</p>
+    <h1>Venkatkrishnan Iyer</h1>
+    <p class="lede">I'm a Computer Engineering student at the University of Michigan. I like working close to the metal: out-of-order processors, embedded firmware, pointer authentication, and the backend systems that connect hardware to the apps people use.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-secondary" href="mailto:venkiyer@umich.edu">Get In Touch</a>
+    </div>
+  </section>
 
-    <section id="education">
-      <h2 class="label">Education</h2>
-      <div class="edu-head">
-        <div>
-          <div class="edu-degree">B.E. Computer Engineering, Minor in Asian Languages</div>
-          <div class="edu-school">University of Michigan, Ann Arbor</div>
-        </div>
-        <div class="edu-dates">Aug 2023 – May 2027</div>
+  <section id="projects">
+    <div class="sec-head">
+      <div>
+        <span class="idx">01</span>
+        <h2>Featured Projects</h2>
       </div>
-    </section>
+      <div class="sub">Systems and embedded work from the past year</div>
+    </div>
 
-    <section id="experience">
-      <h2 class="label">Experience</h2>
-
-      <div class="job">
-        <div class="job-head">
-          <span class="job-role">DevOps Intern</span>
-          <span class="job-dates">May 2026 – Present</span>
-        </div>
-        <div class="job-company">Helping Hand AI</div>
-        <ul>
-          <li>Built a live camera pipeline orchestrating MediaMTX to pull RTSP from Reolink cameras and re-serve low-latency HLS (1s segments) and WebRTC/WHEP streams to the caregiver app, with a WHIP path for two-way audio.</li>
-          <li>Designed a FastAPI + SQLite backend secured with JWT (HS256) auth, bcrypt hashing, and role-based access control, exposing a filterable, paginated alert API with an accept/dismiss/false-alarm workflow.</li>
-          <li>Implemented real-time tiered alert delivery over a JWT-authenticated WebSocket channel, persisting event type, severity, and CV confidence scores for the mobile and ML/CV teams.</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-head">
-          <span class="job-role">Problem Design Engineer</span>
-          <span class="job-dates">Mar 2026 – Present</span>
-        </div>
-        <div class="job-company">Widget Factory (Idler, YC S25)</div>
-        <ul>
-          <li>Reviewed code changes across diverse repositories to evaluate problem clarity, correctness, and fairness.</li>
-          <li>Assessed test quality to ensure alignment between intended solutions and validation cases.</li>
-          <li>Identified ambiguities, inconsistencies, and missing context in problem statements and artifacts.</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-head">
-          <span class="job-role">Junior Programmer</span>
-          <span class="job-dates">Oct 2024 – Feb 2025</span>
-        </div>
-        <div class="job-company">GrimmWyrd Studios</div>
-        <ul>
-          <li>Diagnosed and fixed C++/Python bugs and resolved deployment and hosting issues across a shared codebase in a collaborative environment.</li>
-          <li>Implemented gameplay prototypes in Unreal Engine 5 and created supporting 3D assets in Blender.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2 class="label">Projects</h2>
-
-      <div class="proj">
-        <div class="proj-head">
-          <span class="proj-title">Network File Server</span>
-          <span class="proj-date">Apr 2026</span>
-        </div>
-        <div class="proj-stack">C++ · Threads · Synchronization · File Systems</div>
-        <ul>
-          <li>Built a concurrent network file server supporting authenticated client requests, hierarchical file operations, and persistent file-system state.</li>
-          <li>Implemented synchronization for multi-client access, ensuring correctness under concurrent reads, writes, creates, deletes, and session handling.</li>
-        </ul>
-      </div>
-
-      <div class="proj">
-        <div class="proj-head">
-          <span class="proj-title">RISC-V Authenticated Pointers</span>
-          <span class="proj-date">Jan 2026 – Apr 2026</span>
-        </div>
-        <div class="proj-stack">C++ · RISC-V · Computer Architecture · Security</div>
-        <ul>
-          <li>Hardened RISC-V control/data pointers against tampering by designing a pointer-authentication extension with PAC generation and verification.</li>
-          <li>Evaluated security and hardware cost tradeoffs across XOR, QARMA, CRAFT, and Ascon-based PAC designs and documented the decode-stage integration pipeline.</li>
-        </ul>
-        <div class="proj-links">
-          <a href="assets/eecs573/report.pdf" target="_blank" rel="noopener">Report ↗</a>
-        </div>
-      </div>
-
-      <div class="proj">
-        <div class="proj-head">
-          <span class="proj-title">Out-of-Order RISC-V Processor</span>
-          <span class="proj-date">Oct 2025 – Dec 2025</span>
-        </div>
-        <div class="proj-stack">Verilog · SystemVerilog · Verdi · JasperGold</div>
-        <ul>
-          <li>Implemented a high-performance R10K-style out-of-order microprocessor with parameterized superscalar width, reservation stations, and load/store queue.</li>
-          <li>Designed non-blocking instruction/data caches, branch prediction, early tag broadcast, and a return address stack; verified correctness with custom testbenches and JasperGold.</li>
-        </ul>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-num">Project 01</div>
+        <div class="proj-title">Out-of-Order RISC-V Processor</div>
+        <div class="proj-date">Oct 2025 – Dec 2025</div>
+        <p class="desc">A high-performance R10K-style out-of-order microprocessor with parameterized superscalar width, reservation stations, and load/store queue. Non-blocking caches, branch prediction, and early tag broadcast, verified with JasperGold.</p>
+        <div class="proj-tags"><span>Verilog</span><span>SystemVerilog</span><span>Verdi</span><span>JasperGold</span></div>
         <div class="proj-links">
           <a href="assets/eecs470/report.pdf" target="_blank" rel="noopener">Report ↗</a>
           <a href="assets/eecs470/presentation.pdf" target="_blank" rel="noopener">Slides ↗</a>
         </div>
       </div>
 
-      <div class="proj">
-        <div class="proj-head">
-          <span class="proj-title">Embedded Systems Soccer Robots</span>
-          <span class="proj-date">Oct 2025 – Dec 2025</span>
+      <div class="proj-card">
+        <div class="proj-num">Project 02</div>
+        <div class="proj-title">RISC-V Authenticated Pointers</div>
+        <div class="proj-date">Jan 2026 – Apr 2026</div>
+        <p class="desc">A pointer-authentication extension hardening RISC-V control/data pointers against tampering. Evaluated security and hardware cost tradeoffs across XOR, QARMA, CRAFT, and Ascon-based PAC designs.</p>
+        <div class="proj-tags"><span>C++</span><span>RISC-V</span><span>Security</span></div>
+        <div class="proj-links">
+          <a href="assets/eecs573/report.pdf" target="_blank" rel="noopener">Report ↗</a>
         </div>
-        <div class="proj-stack">C · ARM Assembly · STM32L4+ · CubeIDE</div>
-        <ul>
-          <li>Implemented firmware for a robot soccer game using PS2 controllers, Zumo robots, LCD displays, break-beam sensors, and XBee wireless communication.</li>
-          <li>Configured STM32 peripherals and DAC-based audio output for responsive controls, goal detection, and sound effects.</li>
-        </ul>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">Project 03</div>
+        <div class="proj-title">Embedded Systems Soccer Robots</div>
+        <div class="proj-date">Oct 2025 – Dec 2025</div>
+        <p class="desc">Firmware for a robot soccer game using PS2 controllers, Zumo robots, LCD displays, break-beam sensors, and XBee wireless communication, with STM32 peripherals and DAC-based audio output.</p>
+        <div class="proj-tags"><span>C</span><span>ARM ASM</span><span>STM32L4+</span><span>CubeIDE</span></div>
         <div class="proj-links">
           <a href="assets/eecs373/demo.mp4" target="_blank" rel="noopener">Demo Video ↗</a>
         </div>
       </div>
-    </section>
 
-    <section id="skills">
-      <h2 class="label">Skills</h2>
-      <div class="skill-row"><span class="k">Languages —</span> <span class="v">C, C++, Python, Java, JavaScript, R, Verilog, SystemVerilog, ARM Assembly</span></div>
-      <div class="skill-row"><span class="k">Systems / AI —</span> <span class="v">RISC-V, Computer Architecture, Embedded Systems, JAX, Pallas, XLA, OpenCV</span></div>
-      <div class="skill-row"><span class="k">Tools &amp; Infrastructure —</span> <span class="v">FastAPI, REST APIs, WebSockets, JWT Auth, Docker/Compose, MediaMTX, RTSP/ONVIF, HLS, WebRTC, SQLite, Git, VS Code, STM32, ARM Cortex-M4, Unreal Engine 5, Blender, Figma</span></div>
-    </section>
-
-    <section id="contact">
-      <h2 class="label">Contact</h2>
-      <div class="contact-list">
-        <div><span class="label">Email</span> <a href="mailto:venkiyer@umich.edu">venkiyer@umich.edu</a></div>
-        <div><span class="label">LinkedIn</span> <a href="https://linkedin.com/in/vdiyer" target="_blank" rel="noopener">linkedin.com/in/vdiyer</a></div>
-        <div><span class="label">GitHub</span> <a href="https://github.com/vdiyer" target="_blank" rel="noopener">github.com/vdiyer</a></div>
-        <div><span class="label">Resume</span> <a href="assets/resume.pdf" target="_blank" rel="noopener">Download PDF</a></div>
+      <div class="proj-card">
+        <div class="proj-num">Project 04</div>
+        <div class="proj-title">Network File Server</div>
+        <div class="proj-date">Apr 2026</div>
+        <p class="desc">A concurrent network file server supporting authenticated client requests, hierarchical file operations, and persistent file-system state, with synchronization for correctness under concurrent multi-client access.</p>
+        <div class="proj-tags"><span>C++</span><span>Threads</span><span>File Systems</span></div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer>
-    © 2026 Venkatkrishnan Iyer
-  </footer>
+  <section id="experience">
+    <div class="sec-head">
+      <div>
+        <span class="idx">02</span>
+        <h2>Experience</h2>
+      </div>
+      <div class="sub">Internships and part-time roles</div>
+    </div>
+
+    <div class="exp-list">
+      <div class="exp-row">
+        <div class="exp-dates">May 2026 – Present</div>
+        <div>
+          <div class="exp-role">DevOps Intern</div>
+          <div class="exp-company">Helping Hand AI</div>
+          <p class="summary">Built a live camera pipeline (MediaMTX, RTSP → HLS/WebRTC), a FastAPI + SQLite alert API with JWT auth, and real-time WebSocket alert delivery for the mobile and ML/CV teams.</p>
+        </div>
+      </div>
+
+      <div class="exp-row">
+        <div class="exp-dates">Mar 2026 – Present</div>
+        <div>
+          <div class="exp-role">Problem Design Engineer</div>
+          <div class="exp-company">Widget Factory (Idler, YC S25)</div>
+          <p class="summary">Reviewed code changes for problem clarity and correctness, assessed test quality against intended solutions, and flagged ambiguities in problem statements.</p>
+        </div>
+      </div>
+
+      <div class="exp-row">
+        <div class="exp-dates">Oct 2024 – Feb 2025</div>
+        <div>
+          <div class="exp-role">Junior Programmer</div>
+          <div class="exp-company">GrimmWyrd Studios</div>
+          <p class="summary">Diagnosed and fixed C++/Python bugs across a shared codebase, and implemented Unreal Engine 5 gameplay prototypes with supporting Blender assets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">
+      <div>
+        <span class="idx">03</span>
+        <h2>Skills</h2>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="skill-pills">
+          <span>C</span><span>C++</span><span>Python</span><span>Java</span><span>JavaScript</span><span>R</span><span>Verilog</span><span>SystemVerilog</span><span>ARM Assembly</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Systems &amp; AI</h3>
+        <div class="skill-pills">
+          <span>RISC-V</span><span>Computer Architecture</span><span>Embedded Systems</span><span>JAX</span><span>Pallas</span><span>XLA</span><span>OpenCV</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools &amp; Infrastructure</h3>
+        <div class="skill-pills">
+          <span>FastAPI</span><span>REST APIs</span><span>WebSockets</span><span>JWT Auth</span><span>Docker/Compose</span><span>MediaMTX</span><span>RTSP/ONVIF</span><span>HLS</span><span>WebRTC</span><span>SQLite</span><span>Git</span><span>STM32</span><span>ARM Cortex-M4</span><span>Unreal Engine 5</span><span>Blender</span><span>Figma</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head">
+      <div>
+        <span class="idx">04</span>
+        <h2>Education &amp; Contact</h2>
+      </div>
+    </div>
+    <div class="foot-band">
+      <div>
+        <h3>Education</h3>
+        <div class="edu-degree">B.E. Computer Engineering, Minor in Asian Languages</div>
+        <div class="edu-school">University of Michigan, Ann Arbor</div>
+        <div class="edu-dates">Aug 2023 – May 2027</div>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <div class="contact-list">
+          <div><span class="label">Email</span> <a href="mailto:venkiyer@umich.edu">venkiyer@umich.edu</a></div>
+          <div><span class="label">LinkedIn</span> <a href="https://linkedin.com/in/vdiyer" target="_blank" rel="noopener">linkedin.com/in/vdiyer</a></div>
+          <div><span class="label">GitHub</span> <a href="https://github.com/vdiyer" target="_blank" rel="noopener">github.com/vdiyer</a></div>
+          <div><span class="label">Resume</span> <a href="assets/resume.pdf" target="_blank" rel="noopener">Download PDF</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
+
+<footer class="site-footer">© 2026 Venkatkrishnan Iyer</footer>
 
 </body>
 </html>
